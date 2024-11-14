@@ -1,0 +1,30 @@
+<h2>Subcategories</h2>
+  <%= link_to 'New Subcategory', new_category_subcategory_path(category) %>
+<ul>
+<% category.subcategories.each do |subcategory| %>
+<li>
+<%= link_to subcategory.name, category_path(subcategory) %>
+
+<% if subcategory.subcategories.present? %>
+  <%= render partial: 'subcategory', locals: { category: subcategory } %>
+<% end %>
+
+<%= link_to 'Edit', edit_category_path(subcategory) %>
+<%= link_to 'Delete', category_path(subcategory), method: :delete, data: { confirm: 'Are you sure?' } %>
+</li>
+<% end %>
+</ul>
+
+<h2>Tasks</h2>
+<%= link_to 'New Task', new_category_task_path(category) %>
+<ul>
+<% category.tasks.each do |task| %>
+<li>
+<%= task.name %>
+<%= link_to 'Edit', edit_category_task_path(category, task) %>
+<%= link_to 'Delete', category_task_path(category, task), method: :delete, data: { confirm: 'Are you sure?' } %>
+</li>
+<% end %>
+</ul>
+
+<%= link_to 'Back', categories_path %>
