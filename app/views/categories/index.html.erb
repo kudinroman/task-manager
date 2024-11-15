@@ -1,11 +1,11 @@
-<h1>Categories</h1>
-<%= link_to 'New Category', new_category_path %>
-<ul>
-<% @categories.each do |category| %>
-<li>
-<%= link_to category.name, category_path(category) %>
-<%= link_to 'Edit', edit_category_path(category) %>
-<%= link_to 'Delete', category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %>
-</li>
-<% end %>
-</ul>
+<div>
+  <h2 class="text-2xl mb-4">Categories <%= link_to '+', new_category_path, class: 'btn-new' %></h2>
+
+  <ul>
+    <% @categories.each do |category| %>
+      <li class="flex gap-1">
+        <%= render partial: 'subcategory', locals: { category: category } %>
+      </li>
+    <% end %>
+  </ul>
+</div>
