@@ -1,11 +1,19 @@
-<div>
-  <h2 class="text-2xl mb-4">Categories <%= link_to '+', new_category_path, class: 'btn-new' %></h2>
+<div class="flex">
+  <h2 class="text-2xl mb-4 mr-4">
+    <span>Categories</span>
+    <%= link_to new_category_path do %>
+      <i class="fas fa-plus"></i>
+    <% end %>
+  </h2>
 
   <ul>
     <% @categories.each do |category| %>
-      <li class="flex gap-1">
-        <%= render partial: 'subcategory', locals: { category: category } %>
+      <li class="flex gap-1 border-2 p-2">
+        <p><%= category.name %></p>
       </li>
     <% end %>
   </ul>
+
+  <%= render partial: 'subcategory', locals: { category: category } %>
+
 </div>

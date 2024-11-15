@@ -1,30 +1,52 @@
-<div class="border-2 p-4 w-full">
-  <h2 class="text-2xl">Categories <%= link_to '+', new_category_subcategory_path(category), class: 'inline-block btn-new mb-4' %></h2>
-  <ul>
-    <% category.subcategories.each do |subcategory| %>
-      <li class='flex gap-2 items-center mb-4'>
-        <%= link_to subcategory.name, category_path(subcategory), class: 'btn' %>
-
-        <% if subcategory.subcategories.present? %>
-          <%= render partial: 'subcategory', locals: { category: subcategory } %>
-        <% end %>
-
-        <%= link_to 'Edit', edit_category_path(subcategory), class: 'btn-edit' %>
-        <%= button_to 'Delete', category_path(subcategory), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-cancel' %>
-      </li>
+<div class="flex border-2 p-4 w-full">
+  <h2 class="text-2xl mb-4">
+    <span>Categories</span>
+    <%= link_to new_category_subcategory_path(category) do %>
+      <i class="fas fa-plus"></i>
     <% end %>
-  </ul>
+  </h2>
+  <div>
+    <ul>
+      <% category.subcategories.each do |subcategory| %>
+        <li class='flex gap-2 items-center mb-4'>
+          <%= link_to subcategory.name, category_path(subcategory), class: 'underline' %>
 
-  <h2 class="text-2xl">Tasks <%= link_to '+', new_category_task_path(category), class: 'inline-block btn-new mb-2' %></h2>
-  <ul class="mb-4">
-    <% category.tasks.each do |task| %>
-      <li class="flex gap-2 items-center">
-        <p><%= task.name %> | <%= task.description %> | <%= task.status %></p>
-        <%= link_to 'Edit', edit_category_task_path(category, task), class: 'btn-edit' %>
-        <%= button_to 'Delete', category_task_path(category, task), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-cancel' %>
-      </li>
-    <% end %>
-  </ul>
 
-<%= link_to 'Back', category&.parent_id ? category_path(category&.parent_id) : categories_path, class: 'btn-back inline-block' %>
+          <%= link_to edit_category_path(subcategory) do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+
+          <%= button_to category_path(subcategory), method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <h2 class="text-2xl mb-4">
+      <span>Tasks</span>
+      <%= link_to new_category_task_path(category) do %>
+        <i class="fas fa-plus"></i>
+      <% end %>
+    </h2>
+
+    <ul class="mb-4">
+      <% category.tasks.each do |task| %>
+        <li class="flex gap-2 items-center">
+          <p><%= task.name %> | <%= task.description %> | <%= task.status %></p>
+          <%= link_to edit_category_task_path(category, task) do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+
+          <%= button_to category_task_path(category, task), method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= link_to category&.parent_id ? category_path(category&.parent_id) : categories_path do %>
+    <i class="fas fa-arrow-left"></i>
+  <% end %>
 </div>
