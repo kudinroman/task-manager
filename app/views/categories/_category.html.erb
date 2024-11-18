@@ -1,17 +1,26 @@
-<div id="<%= dom_id category %>">
-  <p>
-    <strong>Name:</strong>
-    <%= category.name %>
-  </p>
+<turbo-frame id="category-update-<%= category.id %>">
+  <div id="<%= dom_id category %>" class="flex justify-between">
+    <%= link_to edit_category_path(category), data: { turbo_frame: "category-update-#{category.id}" }, data: { controller: "tooltip" }, class: "tooltip w-40" do %>
+      <span class="text" data-tooltip-target="text"><%= category.name %></span>
+      <span class="tooltiptext" data-tooltip-target="tooltip"><%= category.name %></span>
+    <% end %>
 
-  <p>
-    <strong>Parent:</strong>
-    <%= category.parent_id %>
-  </p>
+    <% if category.parent_id %>
+      <p><%= category.parent_id %></p>
+    <% end %>
 
-  <p>
-    <strong>Depth:</strong>
-    <%= category.depth %>
-  </p>
+    <% if category.depth > 0 %>
+      <p><%= category.depth %></p>
+    <% end %>
 
-</div>
+    <div class="flex gap-2">
+      <%= link_to category_path(category), data: { turbo_frame: "subcategory" } do %>
+        <i class="fa-regular fa-eye"></i>
+      <% end %>
+
+      <%= button_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="fas fa-trash-alt"></i>
+      <% end %>
+    </div>
+  </div>
+</turbo-frame>

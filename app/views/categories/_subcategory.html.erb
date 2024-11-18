@@ -1,4 +1,4 @@
-<div class="flex border-2 p-4 w-full">
+<div class="border-l-black-300 border-l-2 pl-4 w-full">
   <h2 class="text-2xl mb-4">
     <span>Categories</span>
     <%= link_to new_category_subcategory_path(category) do %>
@@ -12,13 +12,6 @@
           <%= link_to subcategory.name, category_path(subcategory), class: 'underline' %>
 
 
-          <%= link_to edit_category_path(subcategory) do %>
-            <i class="fas fa-edit"></i>
-          <% end %>
-
-          <%= button_to category_path(subcategory), method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <i class="fas fa-trash-alt"></i>
-          <% end %>
         </li>
       <% end %>
     </ul>
@@ -47,6 +40,6 @@
   </div>
 
   <%= link_to category&.parent_id ? category_path(category&.parent_id) : categories_path do %>
-    <i class="fas fa-arrow-left"></i>
+    <i class="fa-solid fa-ban"></i>
   <% end %>
 </div>

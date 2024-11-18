@@ -1,19 +1,15 @@
-<div class="flex">
-  <h2 class="text-2xl mb-4 mr-4">
-    <span>Categories</span>
-    <%= link_to new_category_path do %>
-      <i class="fas fa-plus"></i>
-    <% end %>
-  </h2>
+<div class="flex gap-4">
+  <div class="flex flex-col">
+    <turbo-frame id="category-header" class="mb-4">
+      <%= render partial: 'header', locals: { category: @category } %>
+    </turbo-frame>
 
-  <ul>
-    <% @categories.each do |category| %>
-      <li class="flex gap-1 border-2 p-2">
-        <p><%= category.name %></p>
-      </li>
-    <% end %>
-  </ul>
+    <div id="categories_list">
+      <% @categories.each do |category| %>
+        <%= render partial: 'category', locals: { category: category } %>
+      <% end %>
+    </div>
+  </div>
 
-  <%= render partial: 'subcategory', locals: { category: category } %>
-
+  <turbo-frame id="subcategory"></turbo-frame>
 </div>
