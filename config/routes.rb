@@ -16,10 +16,5 @@ Rails.application.routes.draw do
 
   resources :categories do
     resources :tasks, only: %i[new create edit update destroy]
-    resources :categories, as: :subcategories, controller: :categories do
-      member do
-        get 'subcategory'
-      end
-    end
   end
 end

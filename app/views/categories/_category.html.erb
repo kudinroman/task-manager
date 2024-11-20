@@ -6,11 +6,11 @@
     <% end %>
 
     <% if category.parent_id %>
-      <p><%= category.parent_id %></p>
+      <p> | <%= category.parent_id %></p>
     <% end %>
 
     <% if category.depth > 0 %>
-      <p><%= category.depth %></p>
+      <p> | <%= category.depth %></p>
     <% end %>
 
     <div class="flex gap-2">

@@ -1,6 +1,6 @@
 <h2 class="text-2xl mr-4">
-  <span>Categories</span>
-  <%= link_to new_category_path, data: { turbo_frame: "category-header" } do %>
+  <span>Category</span>
+  <%= link_to new_category_path(frame: @streams[:header], category_id: category&.id), data: { turbo_frame: @streams[:header] } do %>
     <i class="fas fa-plus"></i>
   <% end %>
 </h2>

@@ -1,4 +1,11 @@
-<turbo-frame id="category-header">
-  <%= render 'form', category: @category %>
-</turbo-frame>
+<% if @frame == 'category-header' %>
+  <turbo-frame id="category-header">
+    <%= render 'form', category: @category %>
+  </turbo-frame>
+<% elsif @frame == 'subcategory-header' %>
+  <turbo-frame id="subcategory-header">
+    <%= render 'form', category: @category %>
+  </turbo-frame>
+<% end %>
+
 

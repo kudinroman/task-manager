@@ -16,6 +16,7 @@
     </div>
 
     <%= form.hidden_field :parent_id %>
+    <%= form.hidden_field :depth %>
 
     <div class="actions flex gap-2">
       <%= link_to categories_path, data: { turbo_frame: category.id.present? ? "category-update-#{category.id}" : "category-header" } do %>
