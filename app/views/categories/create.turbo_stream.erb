@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend "categories_#{ @category.depth }", partial: "categories/category", locals: { category: @category } %>
+<%= turbo_stream.update "new_category_#{ @category.depth }", partial: "categories/header", locals: { category_id: @category.depth == 0 ? nil : @category.parent.id, depth: @category.depth } %>

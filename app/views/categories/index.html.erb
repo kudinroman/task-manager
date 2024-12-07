@@ -1,15 +1,16 @@
+<%= turbo_stream_from "categories" %>
 <div class="flex gap-4">
   <div class="flex flex-col">
-    <turbo-frame id="category-header" class="mb-4">
-      <%= render partial: 'header', locals: { category: @category, frame: 'category-header' } %>
-    </turbo-frame>
+    <%= turbo_frame_tag "new_category_0", class:"mb-4" do %>
+      <%= render partial: 'header', locals: { category_id: nil, depth: 0 } %>
+    <% end %>
 
-    <div id="categories-list">
+    <div id="categories_0">
       <% @categories.each do |category| %>
         <%= render partial: 'category', locals: { category: category } %>
       <% end %>
     </div>
   </div>
 
-  <turbo-frame id="subcategory"></turbo-frame>
+  <turbo-frame id="subcategory_0"></turbo-frame>
 </div>
