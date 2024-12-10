@@ -1,0 +1,7 @@
+<%= turbo_stream.update "subcategory_#{@category.depth}", partial: "categories/subcategory", locals: { category: @category } %>
+
+<% Category.where(parent_id: @category.parent_id).each do |category| %>
+  <%= turbo_stream.update "category_#{category.id}" do %>
+    <%= render partial: "categories/category", locals: { category: category } %>
+  <% end %>
+<% end %>

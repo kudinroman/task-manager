@@ -12,5 +12,9 @@
     </div>
   </div>
 
-  <turbo-frame id="subcategory_0"></turbo-frame>
+  <turbo-frame id="subcategory_0">
+    <% if @categories.present? %>
+      <%= render partial: 'subcategory', locals: { category: @categories.find_by(checked: true) } %>
+    <% end %>
+  </turbo-frame>
 </div>

@@ -51,10 +51,10 @@ class CategoriesController < ApplicationController
 
   def subcategory
     @category = Category.find(params[:id])
-    stream_name = "subcategory_#{@category.depth}"
+    check_only_this(@category)
     respond_to do |format|
       format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.update(stream_name, partial: 'categories/subcategory', locals: { category: @category }) }
+      format.turbo_stream
     end
   end
 
@@ -62,5 +62,15 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name, :parent_id, :turbo_frame, :depth)
+  end
+
+  def check_only_this(category)
+    Category.transaction do
+      Category.where(parent_id: category.parent_id).where.not(id: category.id).update_all(checked: false)
+      category.update(checked: true)
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error "Failed to update categories: #{e.message}"
+      raise ActiveRecord::Rollback
+    end
   end
 end

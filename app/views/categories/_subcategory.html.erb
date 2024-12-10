@@ -1,15 +1,19 @@
 <div class="flex gap-4">
   <div class="border-l-black-300 border-l-2 pl-4 w-full">
-    <turbo-frame id="new_category_<%= @category.depth + 1 %>" class="mb-4">
-      <%= render partial: 'header', locals: { category_id: @category.id, depth: @category.depth + 1 } %>
-    </turbo-frame>
+    <% if category.depth + 1 < Category::MAX_DEPTH %>
+      <turbo-frame id="new_category_<%= category.depth + 1 %>">
+        <%= render partial: 'header', locals: { category_id: category.id, depth: category.depth + 1 } %>
+      </turbo-frame>
+    <% end %>
 
     <div>
-      <div id="categories_<%= @category.depth + 1 %>">
-        <% category.subcategories.each do |category| %>
-          <%= render partial: 'category', locals: { category: category } %>
-        <% end %>
-      </div>
+      <% if category.depth + 1 < Category::MAX_DEPTH %>
+        <div id="categories_<%= category.depth + 1 %>" class="border-sky-200 border-b-2 pb-4 mb-4">
+          <% category.subcategories.each do |category| %>
+            <%= render partial: 'category', locals: { category: category } %>
+          <% end %>
+        </div>
+      <% end %>
 
       <h2 class="text-2xl mb-4">
         <span>Tasks</span>
@@ -33,10 +37,10 @@
         <% end %>
       </ul>
     </div>
-
-    <%= link_to category&.parent_id ? subcategory_category_path(category.parent) : categories_path do %>
-      <i class="fa-solid fa-ban"></i>
-    <% end %>
   </div>
-  <turbo-frame id="subcategory_<%= @category.depth + 1 %>"></turbo-frame>
+  <turbo-frame id="subcategory_<%= category.depth + 1 %>">
+    <% if category.subcategories.present? %>
+      <%= render partial: 'subcategory', locals: { category: category.subcategories.find_by(checked: true) } %>
+    <% end %>
+  </turbo-frame>
 </div>

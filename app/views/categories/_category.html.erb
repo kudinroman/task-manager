@@ -1,12 +1,12 @@
 <%= turbo_frame_tag dom_id(category) do %>
-  <div id="<%= dom_id category %>" class="flex justify-between">
+  <div id="<%= dom_id category %>" class="flex justify-between <%= category.checked ? "bg-slate-200" : "" %>">
     <%= link_to edit_category_path(category), data: { controller: "tooltip" }, class: "tooltip w-40" do %>
       <span class="text" data-tooltip-target="text"><%= category.name %></span>
       <span class="tooltiptext" data-tooltip-target="tooltip"><%= category.name %></span>
     <% end %>
 
     <div class="flex gap-2">
-      <%= link_to subcategory_category_path(category), data: { turbo_frame: "subcategory_#{category.depth}" } do %>
+      <%= button_to subcategory_category_path(category), data: { turbo_frame: "subcategory_#{category.depth}" } do %>
         <i class="fa-regular fa-eye"></i>
       <% end %>
 
